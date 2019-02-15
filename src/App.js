@@ -2,32 +2,48 @@ import React, {Component} from "react";
 import {hot} from "react-hot-loader";
 import "./css/app.css";
 import ColorInput from "./components/ColorInput";
+import Button from "./components/Button";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const color_top = this.getRandomColor(),
-          color_bottom = this.getRandomColor();
-
     this.state = {
-                  color_top: color_top,
-                  color_bottom: color_bottom,
-                  style: this.formatGradient(color_top, color_bottom)
+                  color_top: "",
+                  color_bottom: "",
+                  style: {}
                 };
 
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleHexInputChange = this.handleHexInputChange.bind(this);
+    this.setRandomColors = this.setRandomColors.bind(this);
   }
 
-  handleInputChange(e) {
+  componentDidMount() {
+    this.setRandomColors();
+  }
+
+  handleHexInputChange(e) {
     const input_name = e.target.name,
           input_value = e.target.value;
 
     this.setState({
       [input_name]: input_value
     }, () => {
-      this.validateColorInput(input_name);
+      if (this.validateColorInput(input_name)) {
+        this.setState({style: this.formatGradient(this.state.color_top, this.state.color_bottom)});
+      }
     });
+  }
+
+  setRandomColors() {
+    const color_top = this.getRandomColor(),
+          color_bottom = this.getRandomColor();
+
+    this.setState({
+          color_top: color_top,
+          color_bottom: color_bottom,
+          style: this.formatGradient(color_top, color_bottom)
+        });
   }
 
   getRandomColor() {
@@ -48,21 +64,15 @@ class App extends React.Component {
     return hex;
   }
 
-  isValidHex(str) {
-    const is_valid_6 = /^#[0-9A-F]{6}$/i,
-          is_valid_3 = /^#[0-9A-F]{3}$/i;
-
-    return is_valid_6.test(str) || is_valid_3.test(str);
-  }
-
   formatGradient(col_1, col_2) {
     return {background: 'linear-gradient(' + col_1 + ',' + col_2 + ')'};
   }
 
   validateColorInput(name) {
-    if (this.isValidHex(this.state[name])) {
-      this.setState({style: this.formatGradient(this.state.color_top, this.state.color_bottom)});
-    }
+    const is_valid_6 = /^#[0-9A-F]{6}$/i,
+          is_valid_3 = /^#[0-9A-F]{3}$/i;   
+
+    return is_valid_6.test(this.state[name]) || is_valid_3.test(this.state[name]);
   }
 
   render() {
@@ -70,8 +80,12 @@ class App extends React.Component {
       <div id="app" style={this.state.style}>
         <div className="controls">
           <h1 className="controls__title">Gradient Switcher</h1>
-          <ColorInput name="color_top" value={this.state.color_top} onChange={this.handleInputChange} />
-          <ColorInput name="color_bottom" value={this.state.color_bottom} onChange={this.handleInputChange}  />
+          <ColorInput name="color_top" value={this.state.color_top} onChange={this.handleHexInputChange} />
+          <ColorInput name="color_bottom" value={this.state.color_bottom} onChange={this.handleHexInputChange}  />
+
+          <div className="controls__btns">
+            <Button onClick={this.setRandomColors} />
+          </div>
         </div>
       </div>
     );

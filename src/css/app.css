@@ -1,6 +1,7 @@
 html, body {
   margin: 0;
   padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 html {
@@ -28,12 +29,29 @@ html {
 
 .controls__title {
   margin: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 25px;
+  color: #5b4641;
   text-align: center;
 }
 
 .controls__input {
   display: block;
   margin: 10px auto;
+}
+
+.controls__btns {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.controls__btn {
+  padding: 10px;
+  background-color: #5b4641;
+  color: #FDF6F0;
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
 }
