@@ -18,6 +18,7 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: 0.5s;
 }
 
 .controls {
@@ -32,11 +33,6 @@ html {
   font-size: 25px;
   color: #5b4641;
   text-align: center;
-}
-
-.controls__input {
-  display: block;
-  margin: 10px auto;
 }
 
 .controls__btns {
@@ -54,4 +50,21 @@ html {
   -moz-user-select: none;
   -ms-user-select: none;
   -webkit-user-select: none;
+}
+
+.settings {
+  color: #5b4641;
+}
+
+.settings__input {
+  display: block;
+  margin: 10px auto;
+}
+
+.settings__showCss {
+  text-align: center;
+}
+
+.settings__showCss__cssInfo {
+  margin: 10px 0px;
 }

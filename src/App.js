@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {hot} from "react-hot-loader";
 import "./css/app.css";
-import ColorInput from "./components/ColorInput";
-import Button from "./components/Button";
+import Button from "./components/controls/Button";
+import Settings from "./components/Settings";
 
 class App extends React.Component {
   constructor(props) {
@@ -80,11 +80,16 @@ class App extends React.Component {
       <div id="app" style={this.state.style}>
         <div className="controls">
           <h1 className="controls__title">Gradient Switcher</h1>
-          <ColorInput name="color_top" value={this.state.color_top} onChange={this.handleHexInputChange} />
-          <ColorInput name="color_bottom" value={this.state.color_bottom} onChange={this.handleHexInputChange}  />
+
+          <Settings 
+            cssData={this.state.style}
+            color_top={this.state.color_top}
+            color_bottom={this.state.color_bottom}
+            onHexInputChange={this.handleHexInputChange}
+          />
 
           <div className="controls__btns">
-            <Button onClick={this.setRandomColors} />
+            <Button onClick={this.setRandomColors} value="I'm Feeling Lucky!" />
           </div>
         </div>
       </div>
